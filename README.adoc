@@ -22,115 +22,65 @@
 :section-refsig:
 :chapter-refsig:
 
-NOTE: 下記文章中では、ワークスペースとして `Users\kuboaki\rubybok` といった場所を指定していますが、これは、みなさんがCloneしたリポジトリのディレクトリ名で読み替えてください。
+
+= 文章を校正する
+
+== 文書の準備
+
+. 「Asciidoctorのインストール」の演習で作成した自己紹介の文書（ `profile.adoc` ）を `codes` の下にコピーする。
+. コピーした `codes/profile.adoc` を git add する。
+. 「自己紹介の文書を追加した」というコメントをつけてコミットしておく。
+
+WARNING:: あとで更新するので、必ずコミットしておくこと。
 
 
-= Asciidoctorを使えるようにする
+== オンライン文章校正ツールサイトを開く
 
-[[asciidcotor_trial_1]]
-== Asciidoctorをインストールする
+次のサイトをWebブラウザで開く。
 
-((Asciidoctor)) （ `https://asciidoctor.org/` ） は、 Asciidoc形式という書式のテキストファイルから、HTMLファイルやPDFファイルを作るための変換ツールです。
-HTMLをすべて手で書くよりも楽にWebページを作成できます。
-GitHubなど一部のサービスは、テキストをAsciidoc形式で書いておくと、プレビューするときにAsciidoctorで変換した結果を使ってくれるようになってきました。
+テキスト処理ツール（文章校正）:: https://so-zou.jp/web-app/text/proofreading/
 
-AsciidoctorもRubyで書かれています。
-そのため、Rubyの他のライブラリと同じように gem コマンドを使って簡単にインストールできます（ <<install_asciidoctor>> ）。
+.テキスト処理ツール（文章校正）のページ
+image::210521-0001.jpg[{three-quarters-width}]
 
+== オンライン文章校正ツールに文書をかける
 
-[[install_asciidoctor]]
-.【端末】Asciidoctor をインストールする
-[example]
---
-[source,console]
-----
-C:\Users\kuboaki\rubybook>gem install asciidoctor
-----
---
+. テキストエディタで `profile.adoc` を開き、文章全体をコピー選択してコピーする。
+. コピーした文書データをオンライン文章校正ツールの「検査対象の文章」に貼り付ける。
+. 「検査」ボタンを押して校正にかける。
+. 検査の結果の <<proof_result_image>> のような表が得られる。
 
+[[proof_result_image]]
+.検査の結果の例
+image::210521-0002.jpg[{half-width}]
 
-== 【演習】サンプルページをAsciidoctorで作る
+== 検査結果を整理する
 
-Asciidoctorはレポートの作成に使いたいので、そのとき必要になる簡単な文書を作成してみましょう。
-「 <<profile_page_items>> 」のような内容の自己紹介のページがよいでしょう。
+検査結果の表の内容を、箇条書きに直して整理する（ <<proof_result_text>> を自分の検査結果で置き換える）。
 
-[[profile_page_items]]
-.自己紹介のページの項目
-* 自己紹介ページのタイトル
-* 私のこと
-** 姓と名(よみがな)
-** 所属や学籍番号(社員番号)など
-** メールアドレス
-* 最近読んだ本の紹介
-** 読んだ本の書名
-** 紹介文、感想、コメント
-** amazon.co.jp のその本へのリンクをつける
-* 最近買ったものの紹介
-** 買ったものの名前
-** 紹介文
-** その品物を紹介しているサイトへのリンクをつける
+[[proof_result_text]]
+.検査の結果
+****
+. 助詞不足の可能性あり「最近読ん」
+. 助詞不足の可能性あり「先入観」
+. 用字 「見出」→「見いだ」
+. 助詞不足の可能性あり「最近買っ」
+. 用字「甦」→「よみがえ」
+. 助詞不足の可能性あり「いま始まる」
+****
 
+== 検査結果を参照して文章を見直す
 
-「 <<profile_page_items>> 」で示したWebページを、Asciidoctorを使って作ってみましょう。
+. 検査結果を参照して `profile.adoc` を編集する。
+. 編集後の文書を、再び文章校正ツールにかける。
+. 「問題なし」あるいは1、2件の指摘になるまで修正を繰り返す（ <<proof_result_image_updated>> ）。
 
-サンプルとして、Asciidoc形式を使って、見出し、テーブル、箇条書きなどを含む ファイルを書きました（  <<profile.adoc>> ）。
+[[proof_result_image_updated]]
+.検査の結果の例
+image::210521-0003.jpg[{half-width}]
 
-[[profile.adoc]]
-.【ADOC】 `profile.adoc`
-[example]
---
-[source,asciidoctor,linenums]
-----
-include::{sourcesdir}/profile.adoc[]
-----
---
+== 結果を提出する
 
-このファイルを元に、みなさんの自己紹介を書いてください。
-
-文書が作成できたら、 `asciidoctor` コマンドで HTMLファイルに変換します（ <<asciidoctor_to_html>> ）。
-
-[[asciidoctor_to_html]]
-.【端末】Asciidoc形式のファイルをHTMLに変換する
-[example]
---
-作成した `profile.adoc` のあるディレクトリに移動してから実行します。
-[source,console]
-----
-C:\Users\kuboaki\rubybook>asciidoctor profile.
-----
---
-
-変換してできた `profile.html` をWebブラウザーで表示してみると <<profile_page_image>> のようになります。
-
-[[profile_page_image]]
-.`prfile.html` をWebブラウザーで表示した
-image::201005-0005.jpg[{three-quarters-width}]
-
-
-// この図は背景が白いので、枠線が必要かもしれません。
-
-このように、 Asciidoctor を使うと簡便にWebページが作成できます。
-
-
-== まとめ
-
-Asciidoctorを使うと、簡便に文書が作成できることがわかりました。
-演習のテキスト（この文書もそうですね）は、主にこの形式で作成したものを使います。
-また、今後の演習では、レポートなどはこの形式で作成してもらいます。
-そうすれば、みなさんがリポジトリにファイルを作成してpushすれば、レポートを提出したのと同じことになるからです。
-使い方に慣れておくようにしましょう。
-
-ちなみに、Chromeブラウザーには Asciidotor用のプラグインがあります。
-このプラグインを使うと、 HTML に変換していない Asciidoc形式のファイルでも、基本的な変換をした結果を表示してくれます。
-
-Asciidoctor.js Live Preview:: `https://chrome.google.com/webstore/detail/asciidoctorjs-live-previe/iaalpfgpbocpdfblpnhhgllgbdbchmia?type=ext&hl=ja-JP`
-
-
-Asciidoctorを使うことで、章立てのある長大な文章や冊子も作成できます。
-また、Asciidoctor-pdf を使うことで、PDFファイルにも変換できます。
-Asciidoctorを扱った記事や、Asciidoctorを使って制作した書籍もありますので、参考にしてみてください。
-
-asciidoctor-pdfでかっこいいPDFを作る:: `https://qiita.com/kuboaki/items/67774c5ebd41467b83e2`
-Raspberry Pi もっと食べたいレシピ集:: `https://raspimoku.booth.pm/items/1873666`
-
-
+. `profile.adoc` の見直しが済んだら、「自己紹介の文章を校正した」というコメントをつけてコミットする。
+. GitHub（リモート）側へプッシュする。
+. プッシュした後のGitHub側の `profile.adoc` のHistoryをみて、更新できていることを確認する。
