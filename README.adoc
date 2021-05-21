@@ -1,0 +1,136 @@
+:linkcss:
+:stylesdir: css
+:stylesheet: mystyle.css
+:twoinches: width='360'
+:full-width: width='100%'
+:three-quarters-width: width='75%'
+:two-thirds-width: width='66%'
+:half-width: width='50%'
+:half-size:
+:one-thirds-width: width='33%'
+:one-quarters-width: width='25%'
+:thumbnail: width='60'
+:imagesdir: images
+:sourcesdir: codes
+:icons: font
+:hide-uri-scheme!:
+:figure-caption: 図
+:example-caption: リスト
+:table-caption: 表
+:appendix-caption: 付録
+:xrefstyle: short
+:section-refsig:
+:chapter-refsig:
+
+NOTE: 下記文章中では、ワークスペースとして `Users\kuboaki\rubybok` といった場所を指定していますが、これは、みなさんがCloneしたリポジトリのディレクトリ名で読み替えてください。
+
+
+= Asciidoctorを使えるようにする
+
+[[asciidcotor_trial_1]]
+== Asciidoctorをインストールする
+
+((Asciidoctor)) （ `https://asciidoctor.org/` ） は、 Asciidoc形式という書式のテキストファイルから、HTMLファイルやPDFファイルを作るための変換ツールです。
+HTMLをすべて手で書くよりも楽にWebページを作成できます。
+GitHubなど一部のサービスは、テキストをAsciidoc形式で書いておくと、プレビューするときにAsciidoctorで変換した結果を使ってくれるようになってきました。
+
+AsciidoctorもRubyで書かれています。
+そのため、Rubyの他のライブラリと同じように gem コマンドを使って簡単にインストールできます（ <<install_asciidoctor>> ）。
+
+
+[[install_asciidoctor]]
+.【端末】Asciidoctor をインストールする
+[example]
+--
+[source,console]
+----
+C:\Users\kuboaki\rubybook>gem install asciidoctor
+----
+--
+
+
+== 【演習】サンプルページをAsciidoctorで作る
+
+Asciidoctorはレポートの作成に使いたいので、そのとき必要になる簡単な文書を作成してみましょう。
+「 <<profile_page_items>> 」のような内容の自己紹介のページがよいでしょう。
+
+[[profile_page_items]]
+.自己紹介のページの項目
+* 自己紹介ページのタイトル
+* 私のこと
+** 姓と名(よみがな)
+** 所属や学籍番号(社員番号)など
+** メールアドレス
+* 最近読んだ本の紹介
+** 読んだ本の書名
+** 紹介文、感想、コメント
+** amazon.co.jp のその本へのリンクをつける
+* 最近買ったものの紹介
+** 買ったものの名前
+** 紹介文
+** その品物を紹介しているサイトへのリンクをつける
+
+
+「 <<profile_page_items>> 」で示したWebページを、Asciidoctorを使って作ってみましょう。
+
+サンプルとして、Asciidoc形式を使って、見出し、テーブル、箇条書きなどを含む ファイルを書きました（  <<profile.adoc>> ）。
+
+[[profile.adoc]]
+.【ADOC】 `profile.adoc`
+[example]
+--
+[source,asciidoctor,linenums]
+----
+include::{sourcesdir}/profile.adoc[]
+----
+--
+
+このファイルを元に、みなさんの自己紹介を書いてください。
+
+文書が作成できたら、 `asciidoctor` コマンドで HTMLファイルに変換します（ <<asciidoctor_to_html>> ）。
+
+[[asciidoctor_to_html]]
+.【端末】Asciidoc形式のファイルをHTMLに変換する
+[example]
+--
+作成した `profile.adoc` のあるディレクトリに移動してから実行します。
+[source,console]
+----
+C:\Users\kuboaki\rubybook>asciidoctor profile.
+----
+--
+
+変換してできた `profile.html` をWebブラウザーで表示してみると <<profile_page_image>> のようになります。
+
+[[profile_page_image]]
+.`prfile.html` をWebブラウザーで表示した
+image::201005-0005.jpg[{three-quarters-width}]
+
+
+// この図は背景が白いので、枠線が必要かもしれません。
+
+このように、 Asciidoctor を使うと簡便にWebページが作成できます。
+
+
+== まとめ
+
+Asciidoctorを使うと、簡便に文書が作成できることがわかりました。
+演習のテキスト（この文書もそうですね）は、主にこの形式で作成したものを使います。
+また、今後の演習では、レポートなどはこの形式で作成してもらいます。
+そうすれば、みなさんがリポジトリにファイルを作成してpushすれば、レポートを提出したのと同じことになるからです。
+使い方に慣れておくようにしましょう。
+
+ちなみに、Chromeブラウザーには Asciidotor用のプラグインがあります。
+このプラグインを使うと、 HTML に変換していない Asciidoc形式のファイルでも、基本的な変換をした結果を表示してくれます。
+
+Asciidoctor.js Live Preview:: `https://chrome.google.com/webstore/detail/asciidoctorjs-live-previe/iaalpfgpbocpdfblpnhhgllgbdbchmia?type=ext&hl=ja-JP`
+
+
+Asciidoctorを使うことで、章立てのある長大な文章や冊子も作成できます。
+また、Asciidoctor-pdf を使うことで、PDFファイルにも変換できます。
+Asciidoctorを扱った記事や、Asciidoctorを使って制作した書籍もありますので、参考にしてみてください。
+
+asciidoctor-pdfでかっこいいPDFを作る:: `https://qiita.com/kuboaki/items/67774c5ebd41467b83e2`
+Raspberry Pi もっと食べたいレシピ集:: `https://raspimoku.booth.pm/items/1873666`
+
+
